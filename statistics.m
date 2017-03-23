@@ -1,5 +1,5 @@
-fileID1 = fopen('/Users/ccwonline/Documents/matlab/resultNum.txt');
-fileID2 = fopen('/Users/ccwonline/Documents/matlab/newlabel3129.txt');
+fileID1 = fopen('/Users/ccwonline/git/matlab/resultNum.txt');
+fileID2 = fopen('/Users/ccwonline/git/matlab/newlabel3129.txt');
 
 person = textscan(fileID2, '%s %s %s %s %s %s ');
 result = textscan(fileID1, '%s %s %s %s %s %s %s ');
@@ -74,9 +74,9 @@ for i = 1 : hr
 end
 
 for j = 1 : hp
-    if (str2double(person{7}{j}) ~= 0)
-        personDiscernNum = personDiscernNum + 1;
-    end
+%     if (str2double(person{7}{j}) ~= 0)
+%         personDiscernNum = personDiscernNum + 1;
+%     end
 end
 
 disp(strcat('识别对的数是：', resultRightNum));

@@ -33,6 +33,8 @@ for i = 1 : hr
         yp = str2double(person{4}{j});
         widthp = str2double(person{5}{j});
         heightp = str2double(person{6}{j});
+        
+        str = strcat('当前图： ',namer,' 结果： ');
         % 先比名字
         if (namer == namep) 
             % 名字一样 比坐标
@@ -45,26 +47,22 @@ for i = 1 : hr
                 if (typer == typep)
                     % 类别一样 识别正确 计数+1
                     resultRightNum = resultRightNum + 1;
-                    disp(i);
-                    disp(j);
-                    disp('类别一样 识别正确');
+                    disp(strcat(str, '识别正确'));
                     break;
                 else
                     % 类别不一样 识别错误 计数 +1 person里面标记为2
                     arr(j) = 2;
                     discernWrongNum = discernWrongNum + 1;
-                    disp('类别不一样 识别错误');
+                    disp(strcat(str, '识别错误 类别不一样'));
                 end
             else
                 % 坐标不一样
-                disp('坐标不一样');
+                % disp('坐标不一样');
             end
         end
         if (j == hp)
             % 最后一个了 还不对
-            disp(i);
-            disp(j);
-            disp('最后一个了 还不对');
+            disp(strcat(str, '识别错误 无此图或坐标不对'));
         end
     end
 end

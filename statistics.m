@@ -6,30 +6,26 @@ result = textscan(fileID1, '%s %s %s %s %s %s %s ');
 fclose(fileID1);
 fclose(fileID2);
 
-[hr, lr] = size(result{1});
-[hp, lp] = size(person{1});
-
-% ¼ÇÂ¼»úÆ÷Ê¶±ğÕıÈ·Êı
+% è®°å½•æœºå™¨è¯†åˆ«æ­£ç¡®æ•°
 resultRightNum = 0;
-% ¼ÇÂ¼¿ÙÍ¼ÖĞ±»Ê¶±ğ³öµÄÊı
+% è®°å½•æŠ å›¾ä¸­è¢«è¯†åˆ«å‡ºçš„æ•°
 personDiscernNum = 0;
-% ¼ÇÂ¼Ê¶±ğ´íÀà±ğµÄÊı
+% è®°å½•è¯†åˆ«é”™ç±»åˆ«çš„æ•°
 discernWrongNum = 0;
-% ÔÚ¿ÙÍ¼ÖĞ±ê¼Ç´¦Ê¶±ğ³öÀ´µÄÍ¼
-X = zeros(hp,1,'int64');
-person = [person, X];
-% ×ø±êÎó²î
+% åœ¨æŠ å›¾ä¸­æ ‡è®°å¤„è¯†åˆ«å‡ºæ¥çš„å›¾
+arr = zeros(hp,1);
+% åæ ‡è¯¯å·®
 error = 10;
 
 for i = 1 : hr
-    % resultÖĞµÄµÚiĞĞ  È¡³ö name type ×ø±ê
+    % resultä¸­çš„ç¬¬iè¡Œ  å–å‡º name type åæ ‡
     namer = strcat(result{1}{i}, '.jpg');
     typer = result{6}{i};
     xr = str2double(result{2}{i});
     yr = str2double(result{3}{i});
     widthr = str2double(result{4}{i});
     heightr = str2double(result{5}{i});
-    % ¸úpersonÖĞµÄÃ¿Ìõ½øĞĞ¶Ô±È
+    % è·Ÿpersonä¸­çš„æ¯æ¡è¿›è¡Œå¯¹æ¯”
     for j = 1 : hp
         namep = person{1}{j};
         typep = person{2}{j};
@@ -37,48 +33,49 @@ for i = 1 : hr
         yp = str2double(person{4}{j});
         widthp = str2double(person{5}{j});
         heightp = str2double(person{6}{j});
-        % ÏÈ±ÈÃû×Ö
+        % å…ˆæ¯”åå­—
         if (namer == namep) 
-            % Ãû×ÖÒ»Ñù ±È×ø±ê
+            % åå­—ä¸€æ · æ¯”åæ ‡
             if (((xp - error < xr) && (xr < xp + error)) || ...
                 ((yp - error < yr) && (yr < yp + error)) || ...
                 ((widthp - error * 2 < widthr) && (widthr < widthp + error * 2)) || ...
                 ((heightp - error * 2 < heightr) && (heightr < heightp + error * 2)))
-                % ×ø±êÒ»Ñù ±ÈÀà±ğ personÀïÃæ±ê¼ÇÎª1
-                disp(j);
+                % åæ ‡ä¸€æ · æ¯”ç±»åˆ« personé‡Œé¢æ ‡è®°ä¸º1
+                arr(j) = 1;
                 if (typer == typep)
-                    % Àà±ğÒ»Ñù Ê¶±ğÕıÈ· ¼ÆÊı+1
+                    % ç±»åˆ«ä¸€æ · è¯†åˆ«æ­£ç¡® è®¡æ•°+1
                     resultRightNum = resultRightNum + 1;
                     disp(i);
                     disp(j);
-                    disp('Àà±ğÒ»Ñù Ê¶±ğÕıÈ·');
+                    disp('ç±»åˆ«ä¸€æ · è¯†åˆ«æ­£ç¡®');
                     break;
                 else
-                    % Àà±ğ²»Ò»Ñù Ê¶±ğ´íÎó ¼ÆÊı +1 personÀïÃæ±ê¼ÇÎª2
-%                     person{7}{j} = 2;
+                    % ç±»åˆ«ä¸ä¸€æ · è¯†åˆ«é”™è¯¯ è®¡æ•° +1 personé‡Œé¢æ ‡è®°ä¸º2
+                    arr(j) = 2;
                     discernWrongNum = discernWrongNum + 1;
-                    disp('Àà±ğ²»Ò»Ñù Ê¶±ğ´íÎó');
+                    disp('ç±»åˆ«ä¸ä¸€æ · è¯†åˆ«é”™è¯¯');
                 end
             else
-                % ×ø±ê²»Ò»Ñù
-                disp('×ø±ê²»Ò»Ñù');
+                % åæ ‡ä¸ä¸€æ ·
+                disp('åæ ‡ä¸ä¸€æ ·');
             end
         end
         if (j == hp)
-            % ×îºóÒ»¸öÁË »¹²»¶Ô
+            % æœ€åä¸€ä¸ªäº† è¿˜ä¸å¯¹
             disp(i);
             disp(j);
-            disp('×îºóÒ»¸öÁË »¹²»¶Ô');
+            disp('æœ€åä¸€ä¸ªäº† è¿˜ä¸å¯¹');
         end
     end
 end
 
 for j = 1 : hp
-%     if (str2double(person{7}{j}) ~= 0)
-%         personDiscernNum = personDiscernNum + 1;
-%     end
+    
+    if (arr(j) ~= 0)
+        personDiscernNum = personDiscernNum + 1;
+    end
 end
 
-disp(strcat('Ê¶±ğ¶ÔµÄÊıÊÇ£º', resultRightNum));
-disp(strcat('Ê¶±ğ³öÀ´µÄÍ¼ÊıÊÇ£º', personDiscernNum));
-disp(strcat('Àà±ğ´íÎóµÄÊıÊÇ£º', discernWrongNum));
+disp(strcat('è¯†åˆ«å¯¹çš„æ•°æ˜¯ï¼š', num2str(resultRightNum)));
+disp(strcat('è¯†åˆ«å‡ºæ¥çš„å›¾æ•°æ˜¯ï¼š', num2str(personDiscernNum)));
+disp(strcat('ç±»åˆ«é”™è¯¯çš„æ•°æ˜¯ï¼š', num2str(discernWrongNum)));

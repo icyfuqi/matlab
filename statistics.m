@@ -1,5 +1,5 @@
-fileID1 = fopen('/Users/ccwonline/git/matlab/resultNum副本.txt');
-fileID2 = fopen('/Users/ccwonline/git/matlab/newlabel3129副本.txt');
+fileID1 = fopen('/Users/ccwonline/git/matlab/resultNum.txt');
+fileID2 = fopen('/Users/ccwonline/git/matlab/newlabel3129.txt');
 
 person = textscan(fileID2, '%s %s %s %s %s %s ');
 result = textscan(fileID1, '%s %s %s %s %s %s %s ');
@@ -67,13 +67,13 @@ for i = 1 : hr
                     resultRightNum = resultRightNum + 1;
                     arrType(k,2) = arrType(k,2) + 1;
                     disp(strcat(str, '识别正确'));
-                    break;
                 else
                     % 类别不一样 识别错误 计数 +1 person里面标记为2
                     arr(j) = 2;
                     discernWrongNum = discernWrongNum + 1;
                     disp(strcat(str, '识别错误 类别不一样'));
                 end
+                break;
             else
                 % 坐标不一样
                 % disp('坐标不一样');

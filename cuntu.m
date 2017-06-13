@@ -15,3 +15,6 @@ for i=1:size(NAME1,1)
     A = imread(img);
     imwrite(A,path);
 end
+
+
+
